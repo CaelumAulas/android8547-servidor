@@ -10,7 +10,6 @@ import br.com.caelum.twittelumappweb.R
 import br.com.caelum.twittelumappweb.adapter.TweetAdapter
 import br.com.caelum.twittelumappweb.viewmodel.TweetViewModel
 import br.com.caelum.twittelumappweb.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_lista_tweets.*
 import kotlinx.android.synthetic.main.fragment_lista_tweets.view.*
 
 class ListaTweetsFragment : Fragment() {

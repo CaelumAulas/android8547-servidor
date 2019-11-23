@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.caelum.twittelumappweb.R
+import br.com.caelum.twittelumappweb.fragment.BuscaTweetsFragment
 import br.com.caelum.twittelumappweb.fragment.ListaTweetsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,6 +20,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.item_lista -> {
                     exibe(ListaTweetsFragment())
 
+                    true
+                }
+                R.id.item_busca -> {
+                    exibe(BuscaTweetsFragment())
                     true
                 }
 
