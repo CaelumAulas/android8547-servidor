@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_lista_tweets.view.*
 
 class ListaTweetsFragment : Fragment() {
     private val viewModel: TweetViewModel by lazy {
-        ViewModelProviders.of(this, ViewModelFactory).get(TweetViewModel::class.java)
+        ViewModelProviders.of(activity!!, ViewModelFactory).get(TweetViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {

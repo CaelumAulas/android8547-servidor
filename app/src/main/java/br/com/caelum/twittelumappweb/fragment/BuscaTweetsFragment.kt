@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_lista_tweets.*
 
 class BuscaTweetsFragment : Fragment() {
     val viewModel: TweetViewModel by lazy {
-        ViewModelProviders.of(this, ViewModelFactory).get(TweetViewModel::class.java)
+        ViewModelProviders.of(activity!!, ViewModelFactory).get(TweetViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
