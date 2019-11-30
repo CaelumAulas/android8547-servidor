@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
@@ -14,11 +15,13 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.caelum.twittelumappweb.R
 import br.com.caelum.twittelumappweb.decodificaParaBase64
 import br.com.caelum.twittelumappweb.modelo.Tweet
 import br.com.caelum.twittelumappweb.viewmodel.TweetViewModel
+import br.com.caelum.twittelumappweb.viewmodel.UsuarioViewModel
 import br.com.caelum.twittelumappweb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_tweet.*
 import java.io.File
@@ -30,6 +33,11 @@ class TweetActivity : AppCompatActivity() {
         ViewModelProviders.of(this, ViewModelFactory).get(TweetViewModel::class.java)
     }
 
+    private val usuarioViewModel: UsuarioViewModel by lazy {
+        ViewModelProviders.of(this, ViewModelFactory).get(UsuarioViewModel::class.java)
+    }
+
+
     private var localFoto: String? = null
 
 
@@ -38,6 +46,16 @@ class TweetActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tweet)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        viewModel.falha().observe(this, Observer { excecao ->
+            Toast.makeText(this, "erro: ${excecao?.message}", Toast.LENGTH_LONG).show()
+            Log.e("TWEET", "falha na requisição", excecao)
+        })
+
+        viewModel.novoTweet().observe(this, Observer { tweet ->
+            Toast.makeText(this, "Tweet salvo: ${tweet?.mensagem}", Toast.LENGTH_LONG).show()
+            Log.i("TWEET", "$tweet criado na API")
+        })
 
     }
 
@@ -105,7 +123,10 @@ class TweetActivity : AppCompatActivity() {
 
         val foto: String? = tweet_foto.tag as String?
 
-        return Tweet(mensagemDoTweet, foto)
+        val dono = usuarioViewModel.usuarioDaSessao().value
+
+        return Tweet(mensagemDoTweet, foto, dono!!)
+
     }
 
 

@@ -11,4 +11,5 @@ class UsuarioViewModel(private val usuarioRepository: UsuarioRepository) : ViewM
 
     fun estaLogado(): LiveData<Boolean> = usuarioRepository.usuarioEstaLogado
     fun falha() = usuarioRepository.erro
+    fun usuarioDaSessao() = usuarioRepository.usuarioDaSessao
 }

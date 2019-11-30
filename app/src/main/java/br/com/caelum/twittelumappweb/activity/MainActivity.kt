@@ -1,5 +1,6 @@
 package br.com.caelum.twittelumappweb.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        main_fab.setOnClickListener {
+
+            val intent = Intent(this, TweetActivity::class.java)
+            startActivity(intent)
+
+        }
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
