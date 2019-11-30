@@ -33,11 +33,11 @@ class BuscaTweetsFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(texto: String?): Boolean {
-                val tweets = viewModel.lista()
+                val tweets = viewModel.lista().value
 
                 texto?.let {
-                    val filtrados = tweets.filter { tweet -> tweet.mensagem.contains(texto, true) }
-                    lista_tweets.adapter = TweetAdapter(filtrados)
+                    val filtrados = tweets?.filter { tweet -> tweet.mensagem.contains(texto, true) }
+                    lista_tweets.adapter = TweetAdapter(filtrados!!)
                 }
 
                 return true // já tratamos a lógica

@@ -5,12 +5,19 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import br.com.caelum.twittelumappweb.R
 import br.com.caelum.twittelumappweb.fragment.BuscaTweetsFragment
 import br.com.caelum.twittelumappweb.fragment.ListaTweetsFragment
+import br.com.caelum.twittelumappweb.viewmodel.TweetViewModel
+import br.com.caelum.twittelumappweb.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private val viewModel: TweetViewModel by lazy {
+        ViewModelProviders.of(this, ViewModelFactory).get(TweetViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +29,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+
+        viewModel.carregaTweets()
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {

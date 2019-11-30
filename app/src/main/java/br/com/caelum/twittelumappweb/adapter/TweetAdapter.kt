@@ -26,6 +26,7 @@ class TweetAdapter(private val tweets: List<Tweet>) : BaseAdapter() {
             view.item_foto.setImageBitmap(Carregador.decodifica(it))
         }
 
+        view.item_dono.text = tweet.dono.nome
 
         return view
 

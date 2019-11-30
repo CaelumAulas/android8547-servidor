@@ -6,6 +6,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 class TweetWebClient(private val retrofit: Retrofit) {
@@ -29,8 +30,23 @@ class TweetWebClient(private val retrofit: Retrofit) {
         })
     }
 
+    fun busca(sucessoPraLista: (List<Tweet>) -> Unit, erro: (Throwable) -> Unit) {
+        tweetService.lista().enqueue(object : Callback<List<Tweet>> {
+            override fun onFailure(call: Call<List<Tweet>>, t: Throwable) {
+                erro(t)
+            }
+
+            override fun onResponse(call: Call<List<Tweet>>, response: Response<List<Tweet>>) {
+                response.body()?.let(sucessoPraLista)
+            }
+        })
+    }
+
     private interface TweetService {
         @POST("/tweet")
         fun salva(@Body tweet: Tweet): Call<Tweet>
+
+        @GET("/tweet")
+        fun lista(): Call<List<Tweet>>
     }
 }
